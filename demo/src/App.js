@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import flowRight from 'lodash.flowright';
 import { Provider, connect } from 'react-redux';
 import classNames from 'classnames';
-// Import adapter from '@flopflip/launchdarkly-adapter';
+import adapter from '@flopflip/launchdarkly-adapter';
 // import adapter, { updateFlags } from '@flopflip/memory-adapter';
-import adapter, { updateFlags } from '@flopflip/memory-adapter';
+// import adapter, { updateFlags } from '@flopflip/memory-adapter';
 import {
   ConfigureFlopFlip,
   branchOnFeatureToggle,
@@ -21,7 +21,7 @@ import {
 import logo from './logo.svg';
 import store from './store';
 import './App.css';
-import allFlags, {
+import {
   INCREMENT_ASYNC_BUTTON,
   DECREMENT_ASYNC_BUTTON,
   INCREMENT_SYNC_BUTTON,
@@ -141,7 +141,7 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <ConfigureFlopFlip adapter={adapter} defaultFlags={allFlags}>
+        <ConfigureFlopFlip adapter={adapter} adapterArgs={{ clientSideId: '5e9706a99521dd0763442615' }}>
           <div className="App">
             <div className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
@@ -156,6 +156,6 @@ class App extends Component {
   }
 }
 
-window.updateFlags = updateFlags;
+// window.updateFlags = updateFlags;
 
 export default App;
