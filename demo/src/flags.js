@@ -5,5 +5,5 @@ export const INCREMENT_SYNC_BUTTON = 'incrementSync';
 export default {
   [INCREMENT_ASYNC_BUTTON]: false,
   [DECREMENT_ASYNC_BUTTON]: true,
-  [INCREMENT_SYNC_BUTTON]: 'yellow',
+  [INCREMENT_SYNC_BUTTON]: 'purple',
 };

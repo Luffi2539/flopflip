@@ -26,6 +26,7 @@ import allFlags, {
   DECREMENT_ASYNC_BUTTON,
   INCREMENT_SYNC_BUTTON,
 } from './flags';
+import flags from './flags';
 
 const UntoggledFeature = () => <h6>Disabled Feature</h6>;
 
@@ -63,48 +64,52 @@ const FeatureToggledIncrementSyncButton = injectFeatureToggle(
   'syncButtonStyle'
 )(IncrementSyncButton);
 
-const Counter = (props) => (
-  <div>
-    <h1>Count around</h1>
-    <p>Count: {props.count}</p>
+class Counter extends Component {
+  render() {
+    const { props } = this
+    return (
+      <div>
+          <h1>Count around</h1>
+          <p>Count: {props.count}</p>
 
-    <div>
-      <FeatureToggledIncrementSyncButton
-        increment={props.increment}
-        disabled={props.isIncrementing}
-      />
-      <br />
-      <FeatureToggledIncrementAsyncButton
-        incrementAsync={props.incrementAsync}
-        isIncrementing={props.isIncrementing}
-      />
-    </div>
+          <div>
+            <FeatureToggledIncrementSyncButton
+              increment={props.increment}
+              disabled={props.isIncrementing}
+            />
+            <br />
+            <FeatureToggledIncrementAsyncButton
+              incrementAsync={props.incrementAsync}
+              isIncrementing={props.isIncrementing}
+            />
+          </div>
 
-    <div>
-      <button
-        type="button"
-        disabled={props.isDecrementing}
-        onClick={props.decrement}
-      >
-        Decrementing
-      </button>
-      <br />
-      <ToggleFeature
-        flag={DECREMENT_ASYNC_BUTTON}
-        untoggledComponent={UntoggledFeature}
-      >
-        <button
-          type="button"
-          disabled={props.isDecrementing}
-          onClick={props.decrementAsync}
-        >
-          Decrement Async
-        </button>
-      </ToggleFeature>
-    </div>
-  </div>
-);
-
+          <div>
+            <button
+              type="button"
+              disabled={props.isDecrementing}
+              onClick={props.decrement}
+            >
+              Decrementing
+            </button>
+            <br />
+            <ToggleFeature
+              flag={DECREMENT_ASYNC_BUTTON}
+              untoggledComponent={UntoggledFeature}
+            >
+              <button
+                type="button"
+                disabled={props.isDecrementing}
+                onClick={props.decrementAsync}
+              >
+                Decrement Async
+              </button>
+            </ToggleFeature>
+          </div>
+        </div>
+    )
+  }
+}
 const mapStateToProps = (state) => ({
   count: state.counter.count,
   isIncrementing: state.counter.isIncrementing,
@@ -141,7 +146,9 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <ConfigureFlopFlip adapter={adapter} defaultFlags={allFlags}>
+        <ConfigureFlopFlip adapter={adapter} defaultFlags={allFlags} adapterArgs={{user: {
+          key: 'key'
+        }}}>
           <div className="App">
             <div className="App-header">
               <img src={logo} className="App-logo" alt="logo" />
